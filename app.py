@@ -16,6 +16,21 @@ def set_acl(path, group, permissions):
         path
     ], check=True)
 
+def acls(caminho):
+
+    if os.name != 'nt':
+        print(f'Adicionando permições: {caminho}')
+
+        for grupo in configs['permissoes']:
+
+            print(grupo,configs['permissoes']['grupo'])
+
+            try:
+                set_acl(caminho,grupo,configs['permissoes']['grupo'])
+            except Exception as e:
+                print(f'Erro ao impor ACLs:\n {e}')
+    else:
+        print('Sistema Windows, ignorando os ACLs')
 
 app = FastAPI()
 
@@ -164,24 +179,19 @@ def NovaPasta (novaPasta:npRequest):
 
         Path(f"{configs['raizPastas']}/{tributacao}/Clientes ativos/{nomeArquivo}/Reuniões").mkdir(parents=True)
 
+
+
+        #____
+
+        acls(f"{configs['raizPastas']}/{tributacao}/Clientes ativos/{nomeArquivo}")
+
         return 200, 'pasta criada com sucesso'
 
     except pastaExistenteError as e:
         return 401, e
 
 
-def acls(caminho):
 
-    if os.name != 'nt':
-        print(f'Adicionando permições: {caminho}')
-
-        for grupo in configs['permissoes']:
-
-            print(grupo,configs['permissoes']['grupo'])
-
-            set_acl(caminho,grupo,configs['permissoes']['grupo'])
-    else:
-        print('Sistema Windows, ignorando os ACLs')
 
 
 
