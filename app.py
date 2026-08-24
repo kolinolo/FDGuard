@@ -1,11 +1,20 @@
 import json
 import os
-from pathlib  import Path 
+import subprocess
+from pathlib  import Path
 
 from pydantic import BaseModel
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+
+def set_acl(path, group, permissions):
+    subprocess.run([
+        "setfacl",
+        "-m",
+        f"g:{group}:{permissions}",
+        path
+    ], check=True)
 
 
 app = FastAPI()
@@ -155,8 +164,16 @@ def NovaPasta (novaPasta:npRequest):
 
     return 200
 
-def acls():
-    pass
+def acls(caminho):
+
+    if os.name == 'nt':
+
+        for grupo in configs['permissoes']:
+        
+
+            set_acl(caminho,grupo,configs['permissoes']['grupo'])
+
+
 
 
 

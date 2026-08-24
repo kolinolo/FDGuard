@@ -69,5 +69,17 @@
 
   "alvaras": ["Bombeiros", "Prefeitura", "Vigilância Sanitária"],
 
-  "cnds": ["Estadual", "Federal", "FGTS", "Municipal", "Trabalhista"]
+  "cnds": ["Estadual", "Federal", "FGTS", "Municipal", "Trabalhista"],
+
+
+  "permissoes": {
+
+                "administacao" : "rwx",
+
+                "TI" : "rwx",
+
+                "funcionarios" : "rwx"
+
+               }
+
 }
