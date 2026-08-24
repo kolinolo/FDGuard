@@ -10,19 +10,22 @@ from fastapi.middleware.cors import CORSMiddleware
 
 def set_acl(path, group, permissions):
 
+    # ACL atual — recursiva
     subprocess.run([
         "setfacl",
-        '-R',
+        "-R",
         "-m",
         f"g:{group}:{permissions}",
         path
-    ], check=True)    
+    ], check=True)
 
-
+    # ACL padrão — somente no diretório raiz
     subprocess.run([
         "setfacl",
-        f"d:u:{group}:{permissions}",
-        path
+        "-d",
+        "-m",
+        f"g:{group}:{permissions}",
+        f"{path}/"
     ], check=True)
 
 
@@ -36,10 +39,13 @@ def acls(caminho):
 
             print(f"\t{grupo}", f"\t{configs['permissoes'][grupo]}")
 
-            try:
-                set_acl(caminho,grupo,configs['permissoes'][grupo])
-            except Exception as e:
-                print(f'Erro ao impor ACLs:\n {e}')
+            for subF in os.listdir(Path(caminho)):
+
+
+                try:
+                    set_acl(f"{caminho}/{subF}",grupo,configs['permissoes'][grupo])
+                except Exception as e:
+                    print(f'Erro ao impor ACLs:\n {e}')
     else:
         print('Sistema Windows, ignorando os ACLs')
 
