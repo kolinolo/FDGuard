@@ -9,24 +9,35 @@ from fastapi.middleware.cors import CORSMiddleware
 
 
 def set_acl(path, group, permissions):
+
     subprocess.run([
         "setfacl",
+        '-R',
         "-m",
         f"g:{group}:{permissions}",
         path
+    ], check=True)    
+
+
+    subprocess.run([
+        "setfacl",
+        f"d:u:{group}:{permissions}",
+        path
     ], check=True)
+
+
 
 def acls(caminho):
 
     if os.name != 'nt':
-        print(f'Adicionando permições: {caminho}')
+        print(f'Adicionando permições: {caminho}\n')
 
         for grupo in configs['permissoes']:
 
-            print(grupo,configs['permissoes']['grupo'])
+            print(f"\t{grupo}", f"\t{configs['permissoes'][grupo]}")
 
             try:
-                set_acl(caminho,grupo,configs['permissoes']['grupo'])
+                set_acl(caminho,grupo,configs['permissoes'][grupo])
             except Exception as e:
                 print(f'Erro ao impor ACLs:\n {e}')
     else:
