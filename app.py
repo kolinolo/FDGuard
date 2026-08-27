@@ -1,56 +1,11 @@
-import json
-import os
-import subprocess
-from pathlib  import Path
-from pydantic import BaseModel
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from Exceptions import *
-
 from Operations import *
-
-
-def set_acl(path, group, permissions):
-
-    # ACL atual — recursiva
-    subprocess.run([
-        "setfacl",
-        "-R",
-        "-m",
-        f"g:{group}:{permissions}",
-        path
-    ], check=True)
-
-    # ACL padrão — somente no diretório raiz
-    subprocess.run([
-        "setfacl",
-        "-d",
-        "-m",
-        f"g:{group}:{permissions}",
-        f"{path}/"
-    ], check=True)
+from reqs import *
 
 
 
-def acls(caminho):
-
-    if os.name != 'nt':
-        print(f'Adicionando permições: {caminho}\n')
-
-        for grupo in configs['permissoes']:
-
-            print(f"\t{grupo}", f"\t{configs['permissoes'][grupo]}")
-
-            for subF in os.listdir(Path(caminho)):
-
-
-                try:
-                    set_acl(f"{caminho}/{subF}",grupo,configs['permissoes'][grupo])
-                except Exception as e:
-                    print(f'Erro ao impor ACLs:\n {e}')
-    else:
-        print('Sistema Windows, ignorando os ACLs')
 
 app = FastAPI()
 
@@ -64,34 +19,29 @@ app.add_middleware(
 )
 
 
+@app.post('/novaPasta')
+def NovaPastaEndPoint (req:npRequest):
 
-meses = [f'0{m}'[-2:] for m in range(1, 13)]
-
-with open("configs.json", "r", encoding="utf-8") as file: configs = json.load(file)
-
-
-
-class npRequest (BaseModel):
-
-    nome: str
-    tributacao: str
-    contabilidadeA: bool
+    return criarPasta(req)
 
 
 
+@app.post('/moverPasta')
+def moverPastaEndPoint(req):
 
 
-@app.post('/novaPasta', methods=['POST'])
-def NovaPastaEndPoint (novaPasta:npRequest):
-    return novaPasta(novaPasta)
+    if req.op == 'transformar':
 
-
-@app.post('/moverPasta', methods=['POST'])
-def moverPasta():
+        return transformar(req)
 
 
 
-    pass
+    else:
+
+        return mover(req)
+
+
+
 
 
 

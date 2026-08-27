@@ -1,5 +1,11 @@
 """ Cria uma pasta no servidor conforme os parâmetros do endpoint """
-def NovaPasta(req):
+
+
+from Objetos import *
+from Operations.ACLs import acls
+
+
+def criarPasta(req):
     try:
 
         if req.tributacao == "Lucro Real":
