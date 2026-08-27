@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from Operations import *
-from reqs import *
+from Objetos.reqs import *
 
 
 
