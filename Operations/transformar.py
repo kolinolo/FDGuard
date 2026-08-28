@@ -101,7 +101,6 @@ def transformar(req:TransformRequest):
             continue
 
 
-
 def mover(req):
 
     pass

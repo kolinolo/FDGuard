@@ -32,10 +32,25 @@ def moverPastaEndPoint(req:TransformRequest):
 
     if req.op == 'transformar':
 
-        return transformar(req)
+        try:
 
+            transformar(req)
 
+            responseCode = 200
+            msg = 'sucesso'
 
+        except Exception as e:
+            responseCode = 500
+            msg = str(e)
+    else :
+        responseCode = 404
+        msg = 'Not found'
+
+    return [responseCode, msg]
+
+@app.post('/ping')
+def ping():
+    return [200, 'pong']
 
 
 
