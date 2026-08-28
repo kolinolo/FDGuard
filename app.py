@@ -27,7 +27,7 @@ def NovaPastaEndPoint (req:npRequest):
 
 
 @app.post('/transformar')
-def moverPastaEndPoint(req:TransformRequest):
+def transformarPastaEndPoint(req:TransformRequest):
 
 
     if req.op == 'transformar':
@@ -47,6 +47,43 @@ def moverPastaEndPoint(req:TransformRequest):
         msg = 'Not found'
 
     return [responseCode, msg]
+
+
+@app.post('/mover')
+def moverPastaEndPoint(req:MoverRequest):
+
+    if req.op in ['transferir','inativar', 'baixar']:
+
+        try:
+
+            mover(req)
+
+            responseCode = 200
+            msg = 'sucesso'
+
+        except Exception as e:
+            responseCode = 500
+            msg = str(e)
+
+    elif req.op in ['destransferir','reativar']:
+
+        try:
+
+            mover(req,True)
+
+            responseCode = 200
+            msg = 'sucesso'
+
+        except Exception as e:
+            responseCode = 500
+            msg = str(e)
+
+    else :
+        responseCode = 404
+        msg = 'Not found'
+
+    return [responseCode, msg]
+
 
 @app.post('/ping')
 def ping():

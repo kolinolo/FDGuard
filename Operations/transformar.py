@@ -5,6 +5,20 @@ cwd = os.getcwd()
 raiz = configs['raizPastas']
 ano = configs['ano']
 
+pastas = {
+
+    'transferir':'Transferidos',
+    'destransferir':'Transferidos',
+
+    'inativa':'Inativos',
+    'reativar':'Inativos',
+
+    'baixar':'baixados'
+
+
+
+}
+
 def difPastas(de, para):
 
     adicionar = []
@@ -37,7 +51,7 @@ def transformar(req:TransformRequest):
             arq.unlink(missing_ok=True)
 
 
-    shutil.move(pastaAtual, pastaAlvo)
+    shutil.move(Path(pastaAtual), Path(pastaAlvo))
 
     dif = difPastas(fr'src\PastasExemplo\{req.tributacao}\Fiscal',
                     fr'src\PastasExemplo\{req.tributacaoAlvo}\Fiscal')
@@ -101,9 +115,20 @@ def transformar(req:TransformRequest):
             continue
 
 
-def mover(req:MoverRequest):
+def mover(req:MoverRequest, reverse = False):
+
+    pastaOP = pastas[req.op]
+
+    if reverse:
+         pastaAlvo = fr'{raiz}\{req.tributacao}\Clientes ativos\{req.label}'
+         pastaAtual = fr'{raiz}\{req.tributacao}\Clientes {pastaOP}\{req.label}'
+
+    else:
+        pastaAlvo = fr'{raiz}\{req.tributacao}\Clientes {pastaOP}\{req.label}'
+        pastaAtual =  fr'{raiz}\{req.tributacao}\Clientes ativos\{req.label}'
 
 
+    shutil.move(Path(pastaAtual),
+                Path(pastaAlvo))
 
-
-    pass
+    return 
