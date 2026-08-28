@@ -7,15 +7,6 @@ class npRequest (BaseModel):
     tributacao: str
     contabilidadeA: bool
 
-
-"""
-'op': 'transformar',
-                'label': self.label,
-                'tributacaoAtual': self.tributacao,
-                'tributacaoAlvo': self.tributacaoAlvo,
-                'mes': self.TBtrb_mes.currentText()
-
-"""
 class TransformRequest(BaseModel):
 
 
@@ -25,3 +16,7 @@ class TransformRequest(BaseModel):
     tributacaoAlvo: str
     mes: str
 
+class MoverRequest(BaseModel):
+    op: str
+    label: str
+    tributacao: str
