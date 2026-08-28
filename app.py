@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from Operations import *
-from Objetos.reqs import *
+from Objetos import *
 
 
 
@@ -26,8 +26,8 @@ def NovaPastaEndPoint (req:npRequest):
 
 
 
-@app.post('/moverPasta')
-def moverPastaEndPoint(req):
+@app.post('/transformar')
+def moverPastaEndPoint(req:TransformRequest):
 
 
     if req.op == 'transformar':
@@ -36,9 +36,6 @@ def moverPastaEndPoint(req):
 
 
 
-    else:
-
-        return mover(req)
 
 
 

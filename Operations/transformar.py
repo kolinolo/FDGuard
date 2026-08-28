@@ -3,7 +3,7 @@ import os
 
 cwd = os.getcwd()
 raiz = configs['raizPastas']
-
+ano = configs['ano']
 
 def difPastas(de, para):
 
@@ -29,6 +29,7 @@ def transformar(req:TransformRequest):
     pastaAtual = fr'{raiz}\{req.tributacao}\Clientes ativos\{req.label}'
     pastaAlvo = fr'{raiz}\{req.tributacaoAlvo}\Clientes ativos\{req.label}'
 
+    print(f'Realizando transformação pasta {pastaAtual} -> {pastaAlvo} ')
 
     #Limpa arquivos indesejados da pasta
     for nome in ("Thumbs.db", ".DS_Store"):
@@ -38,6 +39,66 @@ def transformar(req:TransformRequest):
 
     shutil.move(pastaAtual, pastaAlvo)
 
+    dif = difPastas(fr'src\PastasExemplo\{req.tributacao}\Fiscal',
+                    fr'src\PastasExemplo\{req.tributacaoAlvo}\Fiscal')
+
+    add = dif['add']
+    rmv = dif['rmv']
+
+
+    for m in meses:
+
+        if int(m) < int(req.mes): continue
+
+        for a in add:
+            try:
+                os.makedirs(f'{pastaAlvo}/Fiscal/Ano {ano}/{m}/{a}')
+                print(f'Adicionando /{m}/{a}')
+
+            except FileExistsError:
+                continue
+
+        print ('\n')
+        for r in rmv:
+            try:
+                os.removedirs(f'{pastaAlvo}/Fiscal/Ano {ano}/{m}/{r}')
+                print(f'Removendo /{m}/{r}')
+
+            except FileNotFoundError:
+                continue
+
+            except OSError:
+                continue
+
+    # Contabil (não itera meses)
+
+    print('\nContabil\n')
+
+    dif = difPastas(fr'src/PastasExemplo/{req.tributacao}/Contabil',
+                    fr'src/PastasExemplo/{req.tributacaoAlvo}/Contabil')
+
+    add = dif['add']
+    rmv = dif['rmv']
+
+    for a in add:
+        try:
+            os.makedirs(f'{pastaAlvo}/Contabil/Ano {ano}/{a}')
+            print(f'Adicionando /{a}')
+
+        except FileExistsError:
+            continue
+
+    print('\n')
+    for r in rmv:
+        try:
+            os.removedirs(f'{pastaAlvo}/Contabil/Ano {ano}/{r}')
+            print(f'Removendo /{r}')
+
+        except FileNotFoundError:
+            continue
+
+        except OSError:
+            continue
 
 
 
