@@ -10,7 +10,7 @@ pastas = {
     'transferir':'Transferidos',
     'destransferir':'Transferidos',
 
-    'inativa':'Inativos',
+    'inativar':'Inativos',
     'reativar':'Inativos',
 
     'baixar':'baixados',
