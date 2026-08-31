@@ -52,7 +52,9 @@ def transformarPastaEndPoint(req:TransformRequest):
 @app.post('/mover')
 def moverPastaEndPoint(req:MoverRequest):
 
-    if req.op in ['transferir','inativar', 'baixar']:
+    if req.op in ['transferir',
+                  'inativar',
+                  'baixar']:
 
         try:
 
@@ -61,11 +63,15 @@ def moverPastaEndPoint(req:MoverRequest):
             responseCode = 200
             msg = 'sucesso'
 
+
+
         except Exception as e:
             responseCode = 500
             msg = str(e)
 
-    elif req.op in ['destransferir','reativar']:
+    elif req.op in ['destransferir',
+                    'reativar',
+                    'desbaixar']:
 
         try:
 

@@ -13,7 +13,8 @@ pastas = {
     'inativa':'Inativos',
     'reativar':'Inativos',
 
-    'baixar':'baixados'
+    'baixar':'baixados',
+    'desbaixar':'baixados'
 
 
 
@@ -131,4 +132,4 @@ def mover(req:MoverRequest, reverse = False):
     shutil.move(Path(pastaAtual),
                 Path(pastaAlvo))
 
-    return 
+    return
