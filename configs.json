@@ -2,7 +2,7 @@
 
   "ano":"2026",
 
-  "raizPastas": "C:\\Users\\Marcelo\\Downloads\\TestePastas",
+  "raizPastas": "/srv/dev-disk-by-uuid-c48c3bd4-e133-4c9d-a5a0-25677896f255/Servidor/SERVIDOR",
 
   "departamentos": ["Contábil", "Fiscal", "Pessoal", "Societário","Reuniões"],
 
@@ -74,7 +74,7 @@
 
   "permissoes": {
 
-                "administacao" : "rwx",
+                "administracao" : "rwx",
 
                 "TI" : "rwx",
 

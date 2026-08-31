@@ -41,8 +41,8 @@ def difPastas(de, para):
 def transformar(req:TransformRequest):
 
 
-    pastaAtual = fr'{raiz}\{req.tributacao}\Clientes ativos\{req.label}'
-    pastaAlvo = fr'{raiz}\{req.tributacaoAlvo}\Clientes ativos\{req.label}'
+    pastaAtual = fr'{raiz}/{req.tributacao}/Clientes ativos/{req.label}'
+    pastaAlvo = fr'{raiz}/{req.tributacaoAlvo}/Clientes ativos/{req.label}'
 
     print(f'Realizando transformação pasta {pastaAtual} -> {pastaAlvo} ')
 
@@ -54,8 +54,8 @@ def transformar(req:TransformRequest):
 
     shutil.move(Path(pastaAtual), Path(pastaAlvo))
 
-    dif = difPastas(fr'src\PastasExemplo\{req.tributacao}\Fiscal',
-                    fr'src\PastasExemplo\{req.tributacaoAlvo}\Fiscal')
+    dif = difPastas(fr'src/PastasExemplo/{req.tributacao}/Fiscal',
+                    fr'src/PastasExemplo/{req.tributacaoAlvo}/Fiscal')
 
     add = dif['add']
     rmv = dif['rmv']
@@ -121,12 +121,12 @@ def mover(req:MoverRequest, reverse = False):
     pastaOP = pastas[req.op]
 
     if reverse:
-         pastaAlvo = fr'{raiz}\{req.tributacao}\Clientes ativos\{req.label}'
-         pastaAtual = fr'{raiz}\{req.tributacao}\Clientes {pastaOP}\{req.label}'
+         pastaAlvo = fr'{raiz}/{req.tributacao}/Clientes ativos/{req.label}'
+         pastaAtual = fr'{raiz}/{req.tributacao}/Clientes {pastaOP}/{req.label}'
 
     else:
-        pastaAlvo = fr'{raiz}\{req.tributacao}\Clientes {pastaOP}\{req.label}'
-        pastaAtual =  fr'{raiz}\{req.tributacao}\Clientes ativos\{req.label}'
+        pastaAlvo = fr'{raiz}/{req.tributacao}/Clientes {pastaOP}/{req.label}'
+        pastaAtual =  fr'{raiz}/{req.tributacao}/Clientes ativos/{req.label}'
 
 
     shutil.move(Path(pastaAtual),

@@ -1,0 +1,12 @@
+[Unit]
+Description= Serviço de inicialização do Serverside criador de pasta
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/NovaPastaSRV_ServerSide
+ExecStart=/opt/NovaPastaSRV_ServerSide/run.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
