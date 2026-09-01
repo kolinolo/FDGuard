@@ -1,5 +1,11 @@
+import shutil
+
 from Objetos import *
+from Operations.ACLs import acls
 import os
+
+
+
 
 cwd = os.getcwd()
 raiz = configs['raizPastas']
@@ -53,9 +59,10 @@ def transformar(req:TransformRequest):
 
 
     shutil.move(Path(pastaAtual), Path(pastaAlvo))
-
+    acls(pastaAlvo)
     dif = difPastas(fr'src/PastasExemplo/{req.tributacao}/Fiscal',
                     fr'src/PastasExemplo/{req.tributacaoAlvo}/Fiscal')
+
 
     add = dif['add']
     rmv = dif['rmv']
@@ -67,7 +74,7 @@ def transformar(req:TransformRequest):
 
         for a in add:
             try:
-                os.makedirs(f'{pastaAlvo}/Fiscal/Ano {ano}/{m}/{a}')
+                os.makedirs(Path(f'{pastaAlvo}/Fiscal/Ano {ano}/{m}/{a}'))
                 print(f'Adicionando /{m}/{a}')
 
             except FileExistsError:
@@ -76,7 +83,7 @@ def transformar(req:TransformRequest):
         print ('\n')
         for r in rmv:
             try:
-                os.removedirs(f'{pastaAlvo}/Fiscal/Ano {ano}/{m}/{r}')
+                os.removedirs(Path(f'{pastaAlvo}/Fiscal/Ano {ano}/{m}/{r}'))
                 print(f'Removendo /{m}/{r}')
 
             except FileNotFoundError:
@@ -85,19 +92,19 @@ def transformar(req:TransformRequest):
             except OSError:
                 continue
 
-    # Contabil (não itera meses)
+    # Contábil (não itera meses)
 
-    print('\nContabil\n')
+    print('\nContábil\n')
 
-    dif = difPastas(fr'src/PastasExemplo/{req.tributacao}/Contabil',
-                    fr'src/PastasExemplo/{req.tributacaoAlvo}/Contabil')
+    dif = difPastas(fr'src/PastasExemplo/{req.tributacao}/Contábil',
+                    fr'src/PastasExemplo/{req.tributacaoAlvo}/Contábil')
 
     add = dif['add']
     rmv = dif['rmv']
 
     for a in add:
         try:
-            os.makedirs(f'{pastaAlvo}/Contabil/Ano {ano}/{a}')
+            os.makedirs(Path(f'{pastaAlvo}/Contábil/Ano {ano}/{a}'))
             print(f'Adicionando /{a}')
 
         except FileExistsError:
@@ -106,7 +113,7 @@ def transformar(req:TransformRequest):
     print('\n')
     for r in rmv:
         try:
-            os.removedirs(f'{pastaAlvo}/Contabil/Ano {ano}/{r}')
+            shutil.rmtree(Path(f'{pastaAlvo}/Contábil/Ano {ano}/{r}'))
             print(f'Removendo /{r}')
 
         except FileNotFoundError:
@@ -131,5 +138,7 @@ def mover(req:MoverRequest, reverse = False):
 
     shutil.move(Path(pastaAtual),
                 Path(pastaAlvo))
+
+    acls(pastaAlvo)
 
     return
