@@ -2,7 +2,7 @@
 
   "ano":"2026",
 
-  "raizPastas": "/srv/dev-disk-by-uuid-c48c3bd4-e133-4c9d-a5a0-25677896f255/Servidor/SERVIDOR",
+  "raizPastas": "C:/Temp",
 
   "departamentos": ["Contábil", "Fiscal", "Pessoal", "Societário","Reuniões"],
 
@@ -10,41 +10,44 @@
 
 
       "simples": [
-                        "Comparativo Entradas X Saída",
-                        "Declarações Serviço Prefeitura",
-                        "DIRBI",
-                        "EFD REINF",
-                        "FATOR R",
-                        "Guias",
-                        "ICMS DSTDA",
-                        "Nota Fiscal Entrada e saída",
-                        "Parcelamentos",
-                        "PERDCOMP",
-                        "PGDAS",
-                        "Recalculados",
-                        "Relatório de Apuração",
-                        "Serviço Prestado",
-                        "Serviço Tomado",
-                        "SINTEGRA"
+          "Comparativo Entrada X Saída",
+          "Declarações Serviço Prefeitura",
+          "DIRBI",
+          "EFD REINF",
+          "Guias",
+          "Nota Fiscal Entrada e Saída e classificações",
+          "Parcelamentos",
+          "PER DCOMP",
+          "Relatório de Apuração",
+          "Serviço Prestado",
+          "Serviço Tomado",
+
+          "ICMS DSTDA",
+          "PGDAS",
+          "SINTEGRA"
                         ],
 
       "presumidoReal" : [
 
-                        "Comparativo Entradas X Saída",
-                        "DCTF-REDARF",
-                        "Declarações Serviço Prefeitura",
-                        "DIME-DCIP", "DIRBI",
-                        "EFD Contribuições",
-                        "EFD REINF" ,
-                        "Guias",
-                        "Nota Fiscal Entrada e Saída e classificações",
-                        "MIT",
-                        "Parcelamentos",
-                        "PERDCOMP",
-                        "Relatório de Apuração",
-                        "Serviço Prestado",
-                        "Serviço Tomado",
-                        "SPED ICMS"
+
+          "Comparativo Entrada X Saída",
+          "Declarações Serviço Prefeitura",
+          "DIRBI",
+          "EFD REINF",
+          "Guias",
+          "Nota Fiscal Entrada e Saída e classificações",
+          "Parcelamentos",
+          "PER DCOMP",
+          "Relatório de Apuração",
+          "Serviço Prestado",
+          "Serviço Tomado",
+
+          "Contratos de Venda e Recebimentos",
+          "DCTF-REDARF",
+          "DIME-DCIP",
+          "EFD Contribuições",
+          "MIT",
+          "SPED ICMS"
 
       ]
 
