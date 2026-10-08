@@ -6,7 +6,7 @@ from Objetos import configs, Path,querryToDF
 
 def set_acl(path, group, permissions):
 
-    # ACL atual — recursiva
+    # ACL de acesso em toda a árvore
     subprocess.run([
         "setfacl",
         "-R",
@@ -15,13 +15,18 @@ def set_acl(path, group, permissions):
         path
     ], check=True)
 
-    # ACL padrão — somente no diretório raiz
+    # ACL padrão em todos os diretórios
     subprocess.run([
+        "find",
+        path,
+        "-type", "d",
+        "-exec",
         "setfacl",
         "-d",
         "-m",
         f"g:{group}:{permissions}",
-        f"{path}/"
+        "{}",
+        "+"
     ], check=True)
 
 def acls(caminho):
@@ -47,30 +52,60 @@ def defaultACLs():
 
     prestadoresCfolders = listaEmpPrestadores()
 
-    raizes = ['Simples Nacional', 'Lucro Real', 'Lucro Presumido']
+    raizes = [ 'Lucro Presumido', 'Simples Nacional','Lucro Real']
 
     for tribut in raizes:
         for cliente in os.listdir(Path(f"/export/Ethos/SERVIDOR/{tribut}/Clientes ativos")):
 
-            print(cliente)
+            print('\n',cliente)
             cod = cliente.split(' - ')[-1]
 
-            for sub in os.listdir(Path(f"/export/Ethos/SERVIDOR/{tribut}/Clientes ativos").joinpath(cliente)):
+            clienteFldr = Path(f"/export/Ethos/SERVIDOR/{tribut}/Clientes ativos").joinpath(cliente)
 
+            set_acl(clienteFldr, 'funcionarios', 'r-x')
+
+            # Prestadores C
+            if cod in prestadoresCfolders:
+                print('PrestadoresC')
+                set_acl(clienteFldr, 'PrestadoresC', 'r-x')
+            else:
+                set_acl(clienteFldr, 'PrestadoresC', '---')
+
+            # yasF
+            if tribut == 'Lucro Presumido':
+
+                print('YasF')
+                set_acl(clienteFldr, 'lucroPresumido', 'r-x')
+            else:
+
+                set_acl(clienteFldr, 'lucroPresumido', '---')
+
+
+
+            for sub in os.listdir(clienteFldr):
+
+                subFdr = Path(f"/export/Ethos/SERVIDOR/{tribut}/Clientes ativos/{cliente}").joinpath(sub)
                 try:
 
 
                     # Funcionários
-                    set_acl(Path(f"/export/Ethos/SERVIDOR/{tribut}/Clientes ativos/{cliente}").joinpath(sub),'funcionarios','rwx')
+                    set_acl(subFdr,'funcionarios','rwx')
 
+                    # Prestadores C
                     if cod in prestadoresCfolders:
-                        print('PrestadoresC !!!')
-                        set_acl(Path(f"/export/Ethos/SERVIDOR/{tribut}/Clientes ativos/{cliente}").joinpath(sub),
-                                'PrestadoresC', 'rwx')
 
+                        set_acl(subFdr,'PrestadoresC', 'rwx')
+
+
+                    #Yasmin fermino
+                    if tribut == 'Lucro Presumido':
+                        set_acl(subFdr,'lucroPresumido', 'rwx')
+                    else:
+                        set_acl(subFdr, 'lucroPresumido', '---')
 
                 except Exception as e:
-                    print(cliente, e)
+
+                    print(subFdr, e)
 
 
 def listaEmpPrestadores():
