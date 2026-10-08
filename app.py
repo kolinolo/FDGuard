@@ -3,9 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from Operations import *
 from Objetos import *
-
-
-
+from Operations.ACLs import listaEmpPrestadores
 
 app = FastAPI()
 
@@ -106,5 +104,6 @@ def ping():
 
 
 if __name__ == "__main__":  # Caso seja a primeira função chamada, executa o servidor com uvicorn na porta 80000
-    import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=81)
+    #import uvicorn
+    #uvicorn.run(app, host="0.0.0.0", port=81)
+   print(defaultACLs())

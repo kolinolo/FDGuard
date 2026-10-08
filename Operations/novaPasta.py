@@ -107,15 +107,15 @@ def criarPasta(req):
                 Path(f"{nivel}/CND/{anoAtual}/{mes}/{cnd}").mkdir(parents=True)
 
         Path(f"{nivel}/Docs Cadastrais").mkdir(parents=True)
-        Path(f"{nivel}/Docs Cadastrais/Procuração").mkdir(parents=True)
-        Path(f"{nivel}/Docs Cadastrais/Processos/Abertura").mkdir(parents=True)
+
+        for c in configs['cadastrais']:
+
+            Path(f"{nivel}/Docs Cadastrais/{c}").mkdir(parents=True)
 
         for alvara in configs['alvaras']:
             Path(f"{nivel}/Docs Cadastrais/Alvarás/{anoAtual}/{alvara}").mkdir(parents=True)
 
-        for pastaSocietario in ["Cods e Acesso da Empresa", "Docs CNPJ", "Notificações multas", "Docs sócios",
-                                "Termos de Responsabilidade"]:
-            Path(f"{nivel}/Docs Cadastrais/{pastaSocietario}").mkdir(parents=True)
+
 
         Path(f"{configs['raizPastas']}/{tributacao}/Clientes ativos/{nomeArquivo}/Reuniões").mkdir(parents=True)
 

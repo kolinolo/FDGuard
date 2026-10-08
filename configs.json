@@ -2,7 +2,7 @@
 
   "ano":"2026",
 
-  "raizPastas": "C:/Ethos/SERVIDOR",
+  "raizPastas": "/export/Ethos/SERVIDOR",
 
   "departamentos": ["Contábil", "Fiscal", "Pessoal", "Societário","Reuniões"],
 
@@ -10,45 +10,44 @@
 
 
       "simples": [
-          "Comparativo Entrada X Saída",
-          "Declarações Serviço Prefeitura",
-          "DIRBI",
-          "EFD REINF",
-          "Guias",
-          "Nota Fiscal Entrada e Saída e classificações",
-          "Parcelamentos",
-          "PER DCOMP",
-          "Relatório de Apuração",
-          "Serviço Prestado",
-          "Serviço Tomado",
+                        "Comparativo Entradas X Saídas",
+                        "Declarações Serviço Prefeitura",
+                        "DIRBI",
+                        "EFD REINF",
+                        "Guias",
+                        "Parcelamentos",
+                        "PER DCOMP",
+                        "Relatório de Apuração",
+                        "Serviço Prestado",
+                        "Serviço Tomado",
 
-          "ICMS DSTDA",
-          "PGDAS",
-          "SINTEGRA"
-                        ],
+                        "FATOR R",
+                        "Recalculados",
+                        "ICMS DSTDA",
+                        "Nota Fiscal Entrada e Saída",
+                        "PGDAS",
+                        "SINTEGRA"
+      ],
 
       "presumidoReal" : [
 
+                        "Comparativo Entradas X Saídas",
+                        "Declarações Serviço Prefeitura",
+                        "DIRBI",
+                        "EFD REINF",
+                        "Guias",
+                        "Parcelamentos",
+                        "PER DCOMP",
+                        "Relatório de Apuração",
+                        "Serviço Prestado",
+                        "Serviço Tomado",
 
-          "Comparativo Entrada X Saída",
-          "Declarações Serviço Prefeitura",
-          "DIRBI",
-          "EFD REINF",
-          "Guias",
-          "Nota Fiscal Entrada e Saída e classificações",
-          "Parcelamentos",
-          "PER DCOMP",
-          "Relatório de Apuração",
-          "Serviço Prestado",
-          "Serviço Tomado",
-
-          "Contratos de Venda e Recebimentos",
-          "DCTF-REDARF",
-          "DIME-DCIP",
-          "EFD Contribuições",
-          "MIT",
-          "SPED ICMS"
-
+                        "DCTF-REDARF",
+                        "DIME-DCIP",
+                        "EFD Contribuições",
+                        "MIT",
+                        "Nota Fiscal Entrada e Saída e classificações",
+                        "SPED ICMS"
       ]
 
   },
@@ -68,9 +67,20 @@
                         "Fechamentos",
                         "Guias",
                         "Lançamentos",
-                        "PERDCOMP"]},
+                        "PERDCOMP"
+  ]},
 
   "alvaras": ["Bombeiros", "Prefeitura", "Vigilância Sanitária"],
+  "cadastrais":[
+        "Alvarás",
+        "Cods e Acesso da Empresa",
+        "Docs CNPJ",
+        "Docs sócios",
+        "Termos de Responsábilidade",
+        "Processos",
+        "Notificações Multas",
+        "Procuração"
+  ],
 
   "cnds": ["Estadual", "Federal", "FGTS", "Municipal", "Trabalhista"],
 
