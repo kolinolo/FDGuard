@@ -29,7 +29,7 @@ def set_acl(path, group, permissions):
         "+"
     ], check=True)
 
-def acls(caminho):
+def acls(caminho ):
 
     if os.name != 'nt':
         print(f'Adicionando permições: {caminho}\n')
@@ -48,9 +48,10 @@ def acls(caminho):
         print('Sistema Windows, ignorando os ACLs')
 
 
-def defaultACLs():
+def defaultACLs(rm=False):
 
-    prestadoresCfolders = listaEmpPrestadores()
+    prestadoresCfolders = listaAcessoDominio(2)
+    ramon = listaAcessoDominio(103)
 
     raizes = [ 'Lucro Presumido', 'Simples Nacional','Lucro Real']
 
@@ -68,7 +69,7 @@ def defaultACLs():
             if cod in prestadoresCfolders:
                 print('PrestadoresC')
                 set_acl(clienteFldr, 'PrestadoresC', 'r-x')
-            else:
+            elif rm:
                 set_acl(clienteFldr, 'PrestadoresC', '---')
 
             # yasF
@@ -76,9 +77,18 @@ def defaultACLs():
 
                 print('YasF')
                 set_acl(clienteFldr, 'lucroPresumido', 'r-x')
-            else:
+            elif rm:
 
                 set_acl(clienteFldr, 'lucroPresumido', '---')
+
+            # ramon
+            if cod in ramon:
+
+                print('Ramon')
+                set_acl(clienteFldr, 'FranciscoRamon', 'r-x')
+            elif rm:
+
+                set_acl(clienteFldr, 'FranciscoRamon', '---')
 
 
 
@@ -97,24 +107,56 @@ def defaultACLs():
                         set_acl(subFdr,'PrestadoresC', 'rwx')
 
 
-                    #Yasmin fermino
+                    # Yasmin fermino
                     if tribut == 'Lucro Presumido':
                         set_acl(subFdr,'lucroPresumido', 'rwx')
-                    else:
+                    elif rm:
                         set_acl(subFdr, 'lucroPresumido', '---')
+
+                    # Ramon
+                    if cod in ramon:
+                        set_acl(subFdr,'FranciscoRamon', 'rwx')
+
+                    elif rm:
+                        set_acl(subFdr, 'FranciscoRamon', '---')
 
                 except Exception as e:
 
                     print(subFdr, e)
 
 
-def listaEmpPrestadores():
+def listaAcessoDominio(idUser:str):
 
     """Lista as empresas que os prestadores tem acesso"""
 
-    df = querryToDF("""select ue.i_empresa from bethadba.usConfEmpresas ue where ue.i_confusuario in (2) and ue.modulos != ''""")
+    df = querryToDF(f"""select ue.i_empresa from bethadba.usConfEmpresas ue where ue.i_confusuario in ({idUser}) and ue.modulos != ''""")
 
     return df['i_empresa'].astype('str').to_list()
+
+
+def setAclWay(path,group):
+
+    """Seta as acls das pastas até a pasta alvo, todas como read only r-x"""
+
+    slices = path.split('/')
+
+
+    way = Path(configs.raiz)
+
+    for step in slices:
+
+        way = way.joinpath(step)
+
+        # ACL de acesso em toda a árvore
+        subprocess.run([
+            "setfacl",
+            "-m",
+            f"g:{group}:r-x",
+            way
+        ], check=True)
+
+
+    pass
 
 
 
