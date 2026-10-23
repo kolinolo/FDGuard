@@ -52,6 +52,7 @@ def defaultACLs(rm=False):
 
     prestadoresCfolders = listaAcessoDominio(2)
     ramon = listaAcessoDominio(103)
+    silvio = listaAcessoDominio(108)
 
     raizes = [ 'Lucro Presumido', 'Simples Nacional','Lucro Real']
 
@@ -90,6 +91,21 @@ def defaultACLs(rm=False):
 
                 set_acl(clienteFldr, 'FranciscoRamon', '---')
 
+            # Silvio
+            if cod in silvio:
+
+                print('Silvio')
+                set_acl(clienteFldr, 'SilvioMoraes', 'r-x')
+            elif rm:
+
+                set_acl(clienteFldr, 'SilvioMoraes', '---')
+
+            if cod in ['319', '209']:
+
+                print('Marcelo')
+                set_acl(clienteFldr, 'Marcelo', 'rwx')
+
+
 
 
             for sub in os.listdir(clienteFldr):
@@ -98,7 +114,7 @@ def defaultACLs(rm=False):
                 try:
 
 
-                    # Funcionários
+                    ## Funcionários
                     set_acl(subFdr,'funcionarios','rwx')
 
                     # Prestadores C
@@ -120,9 +136,46 @@ def defaultACLs(rm=False):
                     elif rm:
                         set_acl(subFdr, 'FranciscoRamon', '---')
 
+                    # Silvio
+                    if cod in silvio:
+                        set_acl(subFdr,'SilvioMoraes', 'rwx')
+
+                    elif rm:
+                        set_acl(subFdr, 'SilvioMoraes', '---')
+
+                    if cod in ['319', '209']:
+                        print('Marcelo')
+                        set_acl(subFdr, 'Marcelo', 'rwx')
+
+
+
                 except Exception as e:
 
                     print(subFdr, e)
+
+    print('Liberando certificados')
+
+    for cert in []:#os.listdir(Path("/export/Ethos/SERVIDOR/Certificados digitais/E-CNPJ")):
+
+        certPath = Path("/export/Ethos/SERVIDOR/Certificados digitais/E-CNPJ").joinpath(cert)
+
+        if not cert.endswith('.pfx'):
+            continue
+
+        try:
+
+            cod = cert[:-4].split(' - ')[-1]
+
+            if cod in silvio:
+                set_acl(certPath, 'SilvioMoraes', 'rwx')
+            else:
+                set_acl(certPath, 'SilvioMoraes', '---')
+
+
+        except Exception:
+            print('pula')
+            continue
+
 
 
 def listaAcessoDominio(idUser:str):

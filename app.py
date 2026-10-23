@@ -106,3 +106,4 @@ def ping():
 if __name__ == "__main__":  # Caso seja a primeira função chamada, executa o servidor com uvicorn na porta 80000
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=81)
+    #defaultACLs()

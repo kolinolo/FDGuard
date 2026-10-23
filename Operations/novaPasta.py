@@ -33,6 +33,8 @@ def criarPasta(req):
             pastasPessoal = configs['pessoal']['simples']
 
         else:
+
+            print(req)
             raise TributError(req.tributacao)
 
         # _______________________________________________________________
