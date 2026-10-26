@@ -17,8 +17,27 @@ app.add_middleware(
 )
 
 
+traducaoTrib = {'1.0':'Lucro Real',
+                '2.0':'Simples Nacional',
+                '3.0':'Simples Nacional',
+                '4.0':'Simples Nacional',
+                '5.0':'Lucro Presumido',
+                '6.0':'RET',
+                '8.0':'Simples Nacional',
+                '9.0':'Simples Nacional'}
+
+
+
+
+
 @app.post('/novaPasta')
 def NovaPastaEndPoint (req:npRequest):
+
+    if req.tributacao in traducaoTrib: req.tributacao = traducaoTrib[req.tributacao]
+
+
+
+    print(req)
 
     return criarPasta(req)
 
