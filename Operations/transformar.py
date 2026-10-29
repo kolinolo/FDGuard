@@ -19,8 +19,8 @@ pastas = {
     'inativar':'Inativos',
     'reativar':'Inativos',
 
-    'baixar':'baixados',
-    'desbaixar':'baixados'
+    'baixar':'Baixados',
+    'desbaixar':'Baixados'
 
 
 

@@ -4,8 +4,8 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/opt/NovaPastaSRV_ServerSide
-ExecStart=/opt/NovaPastaSRV_ServerSide/run.sh
+WorkingDirectory=/opt/FdGuard
+ExecStart=/opt/FdGuard/run.sh
 Restart=on-failure
 
 [Install]
