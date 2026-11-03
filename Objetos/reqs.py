@@ -16,6 +16,15 @@ class TransformRequest(BaseModel):
     tributacaoAlvo: str
     mes: str
 
+
+class RenomeiaRequest(BaseModel):
+
+    op: str
+    caminho: str
+    old_label: str
+    new_label: str
+
+
 class MoverRequest(BaseModel):
     op: str
     label: str

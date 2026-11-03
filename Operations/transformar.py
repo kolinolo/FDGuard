@@ -142,3 +142,17 @@ def mover(req:MoverRequest, reverse = False):
     acls(pastaAlvo)
 
     return
+
+def renomear(req):
+    print('renomeando')
+    print(req)
+
+    old = f'{raiz}/{req.caminho}/{req.old_label}'
+    new = f'{raiz}/{req.caminho}/{req.new_label}'
+
+    shutil.move(Path(old),
+                Path(new))
+
+
+
+    return

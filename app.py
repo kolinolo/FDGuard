@@ -1,9 +1,11 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from Objetos.reqs import RenomeiaRequest
 from Operations import *
 from Objetos import *
 from Operations.ACLs import listaAcessoDominio
+from Operations.transformar import renomear
 
 app = FastAPI()
 
@@ -59,12 +61,28 @@ def transformarPastaEndPoint(req:TransformRequest):
         except Exception as e:
             responseCode = 500
             msg = str(e)
+
     else :
         responseCode = 404
         msg = 'Not found'
 
     return [responseCode, msg]
 
+
+@app.post('/renomear')
+def renomearEndPoint(req:RenomeiaRequest):
+    try:
+
+        renomear(req)
+
+        responseCode = 200
+        msg = 'sucesso'
+
+    except Exception as e:
+        responseCode = 500
+        msg = str(e)
+
+    return [responseCode, msg]
 
 @app.post('/mover')
 def moverPastaEndPoint(req:MoverRequest):
@@ -106,6 +124,10 @@ def moverPastaEndPoint(req:MoverRequest):
         msg = 'Not found'
 
     return [responseCode, msg]
+
+@app.post('/defoultACL')
+def defoultACLEndPoint():
+    defaultACLs()
 
 
 @app.post('/ping')
